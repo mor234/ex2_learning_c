@@ -2,151 +2,177 @@
 #include <stdio.h>
 #include "myBank.h"
 /*
-the program 
+the program
 
 
 */
-int main ()
-{
-    char option=' ';
-    double doubleNumber=0;
-    int accountNumber=0;
-    do
-    {
-        printf("\nPlease choose a transaction type:\n");
-        printf("O-Open Account\n");
-        printf("B-Balance Inquiry\n");
-        printf("D-Deposit\n");
-        printf("W-Withdrawal\n");
-        printf("C-Close Account\n");
-        printf("I-Interest\n");
-        printf("P-Print\n");
-        printf("E-Exit\n");
-        while(option==' ')
-        {  option=getchar();}
-        switch (option)
-            {
-                case 'O':
-                    printf("Please enter amount for deposit: ");
-                    if(scanf("%lf",&doubleNumber)!=1)
-                    { 
-                        getchar();
-                        printf("Failed to read the amount\n");
-                    }
+int main() {
+	char option;
+	double doubleNumber = 0;
+	int accountNumber = 0;
+	do {
+		printf("\nPlease choose a transaction type:\n");
+		printf(" O-Open Account\n");
+		printf(" B-Balance Inquiry\n");
+		printf(" D-Deposit\n");
+		printf(" W-Withdrawal\n");
+		printf(" C-Close Account\n");
+		printf(" I-Interest\n");
+		printf(" P-Print\n");
+		printf(" E-Exit\n");
+		while (scanf("%c", &option) == 0 || option == ' ') //if didn't read or if read ' ', read again
+		{
+		}
+		switch (option) {
+		case 'O':
+			printf("Please enter amount for deposit: ");
+			if (scanf("%lf\n", &doubleNumber) != 1) {
+				printf("Failed to read the amount\n");
+			}
+			else {
+				accountNumber = openAccount(doubleNumber);
+				switch (accountNumber) {
+				case -2:
+					printf("There aren't any avaliable account's: %d\n", accountNumber);
+					break;
+				case -1:
+					printf("Invalid Amount\n");
+					break;
+				default: //accountNumber>-1,  there wasn't any error
+					printf("New account number is: %d \n", accountNumber);
+				}
+			}
+			break;
+		case 'B':
+			printf("Please enter account number: ");
+			if (scanf("%d\n", &accountNumber) != 1) {
+				printf("Failed to read the account number\n");
+			}
+			else if (!realAccountNumber(accountNumber)) {
+				printf("Invalid account number\n");
+			}
+			else if (!isOpen(accountNumber)) {
+				printf("This account is closed\n");
+			}
+			else {
+				printf("The balance of account number %d is: %.2lf\n", accountNumber, balance(accountNumber));
+			}
+			break;
+
+
+		case 'D':
+			printf("Please enter account number: ");
+			if (scanf("%d\n", &accountNumber) != 1) {
+				printf("Failed to read the account number\n");
+			}
+			else if (!realAccountNumber(accountNumber)) {
+				printf("Invalid account number\n");
+			}
+			else if (!isOpen(accountNumber)) {
+				printf("This account is closed\n");
+			}
+			else {
+				printf("Please enter amount for deposit: ");
+				if (scanf("%lf\n", &doubleNumber) != 1) {
+					printf("Failed to read the amount\n");
+				}
+				else {
+					doubleNumber = deposite(accountNumber, doubleNumber);
+
+					if (doubleNumber == -1)
+						printf("Cannot deposit a negative amount\n");
+					else if (doubleNumber == -2)
+						printf("Cannot withdraw more than the balance\n");
+					else
+						printf("The new balance is: %.2lf\n", doubleNumber);
+				}
+			}
+
+			break;
+
+		case 'W':
+			printf("Please enter account number: ");
+			if (scanf("%d\n", &accountNumber) != 1) {
+				printf("Failed to read the account number\n");
+			}
+			else if (!realAccountNumber(accountNumber)) {
+				printf("Invalid account number\n");
+			}
+			else if (!isOpen(accountNumber)) {
+				printf("This account is closed\n");
+			}
+			else {
+				printf("Please enter the amount to withdraw: ");
+				if (scanf("%lf\n", &doubleNumber) != 1) {
+					printf("Failed to read the amount\n");
+				}
+				else {
+					doubleNumber = withdraw(accountNumber, doubleNumber);
+					//if (doubleNumber == -1)
+						//printf("Cannot Withdraw a negative amount\n");
+					if(doubleNumber == -2)
+						printf("Cannot withdraw more than the balance\n");
                     else
-                    {
-                        openAccount(doubleNumber);
-                    }
-                    break;
-                case 'B':
-                    printf("Please enter account number: ");
-                    if(scanf("%d",&accountNumber)!=1)
-                    { 
-                        getchar();
-                        printf("Failed to read the account number\n");
-                    }
-                    else
-                    {
-                        balance(accountNumber);
-                    }
-                    break;
-
-
-                case 'D':
-                    printf("Please enter account number: ");
-                    if(scanf("%d",&accountNumber)!=1)
-                    { 
-                        getchar();
-                        printf("Failed to read the account number\n");
-                    }else
-                    {
-                        printf("Please enter amount for deposit: ");
-                        if(scanf("%lf",&doubleNumber)!=1)
-                        { 
-                           getchar();
-                           printf("Failed to read the amount\n");
-                        }
-                        else
-                        {
-                            deposite(accountNumber,doubleNumber);
-                        }
-                    }           
-                    break;
-
-
-
-                case 'W':
-                    printf("Please enter account number: ");
-                    if(scanf("%d",&accountNumber)!=1)
-                    { 
-                        getchar();
-                        printf("Failed to read the account number\n");
-                    }else
-                    {
-                        printf("Please enter the amount to withdraw: ");
-                        if(scanf("%lf",&doubleNumber)!=1)
-                        { 
-                           getchar();
-                           printf("Failed to read the amount\n");
-                        }
-                        else
-                        {
-                            withdraw(accountNumber,doubleNumber);
-                        }
-                    } 
-                    break;
+                    printf("The new balance is: %.2lf\n",doubleNumber);
+				}
+			}
+			break;
 
 
 
 
-                case 'C':
-                    printf("Please enter account number: ");
-                    if(scanf("%d",&accountNumber)!=1)
-                    { 
-                        getchar();
-                        printf("Failed to read the account number\n");
-                    }
-                    else
-                    {
-                        close(accountNumber);
-                    }
-                    break;
+		case 'C':
+			printf("Please enter account number: ");
+			if (scanf("%d\n", &accountNumber) != 1) {
+				printf("Failed to read the account number\n");
+			}
+			else if (!realAccountNumber(accountNumber)) {
+				printf("Invalid account number\n");
+			}
+
+			else if (!isOpen(accountNumber)) {
+				printf("This account is already closed\n");
+			}
+			else {
+				close(accountNumber);
+				printf("Closed account number %d\n", accountNumber);
+			}
+			break;
 
 
 
 
-                case 'I':
-                    printf("Please enter interest rate: ");
-                    if(scanf("%lf",&doubleNumber)!=1)
-                    { 
-                           getchar();
-                           printf("Failed to read the interest rate\n");
-                    }
-                    else
-                    {
-                        addIntrest(doubleNumber);
-                    }
-                    break;
+		case 'I':
+			printf("Please enter interest rate: ");
+			if (scanf("%lf\n", &doubleNumber) != 1) {
+				printf("Failed to read the interest rate\n");
+			}
+			else {
+				if (addIntrest(doubleNumber) == -1)
+					printf("Invalid interest rate\n");
+			}
+			break;
 
 
-                case 'P':
-                    printAll();
-                    break;
+		case 'P':
+			printAll();
+			break;
 
 
-                case 'E':
-                    closeAll();
-                    break;
+		case 'E':
+			closeAll();
+			break;
 
 
 
-                default:
-                    printf("Invalid transaction type\n");//different letter
-                    break;
-            }
-            
-    } while (option!='E');
-    
+		default:
+			printf("Invalid transaction type\n"); //if got different letter
+			break;
+		}
+	}
 
-    return 0;
+	while (option != 'E');
+
+
+	return 0;
 }
