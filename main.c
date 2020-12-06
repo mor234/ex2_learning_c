@@ -2,9 +2,8 @@
 #include <stdio.h>
 #include "myBank.h"
 /*
-This program is 
-
-
+This program Manages 50 bank accounts.
+Practice in c in using arrays, loops etc.
 */
 int main() {
 	char option;
