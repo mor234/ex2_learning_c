@@ -18,13 +18,17 @@ int main() {
 		printf(" C-Close Account\n");
 		printf(" I-Interest\n");
 		printf(" P-Print\n");
-		printf(" E-Exit\n");
-		while (scanf("%c", &option) == 0 || option == ' '); //if didn't read or if read ' ', read again
+		printf(" E-Exit\n");  
+		int flag=scanf("\n%c", &option);
+		while (flag== 0 ||option == ' ')
+		{
+			flag=scanf("\n%c", &option);
+		} //if didn't read or if read ' ', read again
 	
 		switch (option) {
 		case 'O':
 			printf("Please enter amount for deposit: ");
-			if (scanf("%lf\n", &doubleNumber) != 1) {
+			if (scanf("%lf", &doubleNumber) != 1) {
 				printf("Failed to read the amount\n");
 			}
 			else {
@@ -43,7 +47,7 @@ int main() {
 			break;
 		case 'B':
 			printf("Please enter account number: ");
-			if (scanf("%d\n", &accountNumber) != 1) {
+			if (scanf("%d", &accountNumber) != 1) {
 				printf("Failed to read the account number\n");
 			}
 			else if (!realAccountNumber(accountNumber)) {
@@ -60,7 +64,7 @@ int main() {
 
 		case 'D':
 			printf("Please enter account number: ");
-			if (scanf("%d\n", &accountNumber) != 1) {
+			if (scanf("%d", &accountNumber) != 1) {
 				printf("Failed to read the account number\n");
 			}
 			else if (!realAccountNumber(accountNumber)) {
@@ -71,7 +75,7 @@ int main() {
 			}
 			else {
 				printf("Please enter amount for deposit: ");
-				if (scanf("%lf\n", &doubleNumber) != 1) {
+				if (scanf("%lf", &doubleNumber) != 1) {
 					printf("Failed to read the amount\n");
 				}
 				else {
@@ -90,7 +94,7 @@ int main() {
 
 		case 'W':
 			printf("Please enter account number: ");
-			if (scanf("%d\n", &accountNumber) != 1) {
+			if (scanf("%d", &accountNumber) != 1) {
 				printf("Failed to read the account number\n");
 			}
 			else if (!realAccountNumber(accountNumber)) {
@@ -101,7 +105,7 @@ int main() {
 			}
 			else {
 				printf("Please enter the amount to withdraw: ");
-				if (scanf("%lf\n", &doubleNumber) != 1) {
+				if (scanf("%lf", &doubleNumber) != 1) {
 					printf("Failed to read the amount\n");
 				}
 				else {
@@ -119,7 +123,7 @@ int main() {
 
 		case 'C':
 			printf("Please enter account number: ");
-			if (scanf("%d\n", &accountNumber) != 1) {
+			if (scanf("%d", &accountNumber) != 1) {
 				printf("Failed to read the account number\n");
 			}
 			else if (!realAccountNumber(accountNumber)) {
@@ -141,7 +145,7 @@ int main() {
 		case 'I':
 			printf("Please enter interest rate: ");
 			int interst;
-			if (scanf("%d\n", &interst) != 1) //I changed to int so the output will be as demanded
+			if (scanf("%d", &interst) != 1) //I changed to int so the output will be as demanded
 			{
 				printf("Failed to read the interest rate\n");
 			}
