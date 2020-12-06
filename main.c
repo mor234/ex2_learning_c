@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "myBank.h"
 /*
-the program
+This program is 
 
 
 */
@@ -20,9 +20,8 @@ int main() {
 		printf(" I-Interest\n");
 		printf(" P-Print\n");
 		printf(" E-Exit\n");
-		while (scanf("%c", &option) == 0 || option == ' ') //if didn't read or if read ' ', read again
-		{
-		}
+		while (scanf("%c", &option) == 0 || option == ' '); //if didn't read or if read ' ', read again
+	
 		switch (option) {
 		case 'O':
 			printf("Please enter amount for deposit: ");
@@ -108,9 +107,7 @@ int main() {
 				}
 				else {
 					doubleNumber = withdraw(accountNumber, doubleNumber);
-					//if (doubleNumber == -1)
-						//printf("Cannot Withdraw a negative amount\n");
-					if(doubleNumber == -2)
+					if(doubleNumber == -1)
 						printf("Cannot withdraw more than the balance\n");
                     else
                     printf("The new balance is: %.2lf\n",doubleNumber);
@@ -144,11 +141,13 @@ int main() {
 
 		case 'I':
 			printf("Please enter interest rate: ");
-			if (scanf("%lf\n", &doubleNumber) != 1) {
+			int interst;
+			if (scanf("%d\n", &interst) != 1) //I changed to int so the output will be as demanded
+			{
 				printf("Failed to read the interest rate\n");
 			}
 			else {
-				if (addIntrest(doubleNumber) == -1)
+				if (addIntrest(interst) == -1)
 					printf("Invalid interest rate\n");
 			}
 			break;
@@ -166,7 +165,7 @@ int main() {
 
 
 		default:
-			printf("Invalid transaction type\n"); //if got different letter
+			printf("Invalid transaction type\n"); //if got char who isn't in the options
 			break;
 		}
 	}

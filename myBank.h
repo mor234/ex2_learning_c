@@ -4,30 +4,58 @@
 
 #include <stdbool.h>
 
-/*open an account with intial deposite, print the new account number.
-openning an account is ossibale only if there re less then 50 aount return 0 if sucside, -1 if not*/
+
+
+//checks if the account number is in the range of valid accounts numbers
+bool realAccountNumber(int accountNumber);
+//checks if the account is open,
+//assumes the account number is in range
+bool isOpen(int accountNumber);
+/*
+Method that open an account with intial deposite,
+return the new account number.
+openning an account is possibale only if:
+- there are less then 50 accounts; 
+- the deposite is positive;
+*/
 int openAccount(double initialDeposit);
-/*return the balance, only allowed if the account is open*/
+/*
+Method that returns the balance of a given account, assumes:
+- the given accountNumber is in range,
+- the account is open
+*/
 double balance(int accountNumber);
-/*deposite, print the new balance,  only allowed if the account is open*/
+/*
+Method that deposite a positive sum into a givan account, assumes:
+- the given accountNumber is in range
+- the account is open
+ if the sumToDeposit <0 : return -1, sign for error
+ */
 double deposite(int accountNumber, double sumToDeposit);
-/*withdraw, print the new balance,
-only allowed if there account is open and there is enough money*/
+/*
+This metode withdraw from a given account,
+and return the new balance. assumes:
+- the given accountNumber is in range
+- the account is open
+ not allowed to withdraw more then the sum in the account.
+ return -1 if such attempt is made
+*/
 double withdraw(int accountNumber, double sumToWithdraw);
-/*close an acountt only allowed if open*/
+/*
+close an account , assume:
+- the given accountNumber is in range,
+- the account is open
+*/
 void close(int accountNumber);
-/*add intrest in te given present to all the open accounts*/
+/*
+add intrest in the given present to all the open accounts
+the intrest need to be positive. if not, return -1
+*/
 int addIntrest(double intrestPresent);
 /*print all the open accounts and their balance */
 void printAll();
 /*close all the accounts */
 void closeAll();
-
-//check if an account of this number is open.
-bool isOpen(int accountNumber);
-
-//checks if the account number is in the range of valid account numbers
-bool realAccountNumber(int accountNumber);
 
 
 #endif
