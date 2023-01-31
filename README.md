@@ -1,3 +1,3 @@
-# ex2_learning_c
-basic loop and arrays exercise
+# basic loop and arrays exercise in C
+
 was done as a part of a c while learning course
